@@ -1,0 +1,52 @@
+<!-- <input type="text" ng-pattern="/^[a-z]*$/" ng-trim="true" ng-model="myModel" ng-required="true"> -->
+
+<div>
+  <form [formGroup]="form" (ngSubmit)="onCreatePost()">
+    <div class="form">
+      <label for="email">Name</label>
+      <input type="text" id="name" formControlName="name" (input)="onInput($event)" >
+
+       <div *ngIf="!form.get('name').valid && (form.get('name').touched || form.get('name').dirty)">
+         <small *ngIf="form.get('name').errors?.['spaceInInput']"> cannot contain space</small><br>
+         <small *ngIf="form.get('name').errors?.['invalidName']">special characters not allowed</small><br>
+          <small  *ngIf="form.get('name').errors?.['CapitalInInput']"> capital letters not allowed</small><br>
+         <small *ngIf="form.get('name').errors?.['pattern'].requiredPattern ==='/^[^0-9]*$/' ">Numbers Not allowed</small>  
+         <!-- <small *ngIf="form.get('name').errors?.['pattern'].requiredPattern ==='/^[^A-Z]*$/' ">capital letters Not allowed</small>  -->
+         <!-- <small *ngIf="form.get('name').errors?.['pattern'].requiredPattern ==='/^((?!(.*[\^\$\.\|\?\*\+\(\)\[\]\{\}\\\/])).)*$/'">Special characters Not allowed</small>   -->
+        <!-- <small *ngIf="form.get('name').hasError('pattern')">special characters not allowed</small> -->
+        <!-- <small class="error" *ngIf="form.get('name').errors?.['pattern']">
+          <ng-container *ngIf="form.get('name').errors?.['pattern'].requiredPattern === '/^[a-z]*$/' ">Pattern 1 Error</ng-container>   
+           <ng-container *ngIf="form.get('name').errors?.['pattern'].requiredPattern ==='/^[^0-9]*$/' ">Numbers Not allowed</ng-container>
+           <ng-container *ngIf="form.get('name').errors?.['pattern'].requiredPattern ==='/^[^A-Z]*$/' ">capital letters Not allowed</ng-container>
+        </small>  -->
+         <!-- <small *ngIf="!form.get('name').errors?.['customValidator']">
+          <ng-container *ngIf="form.get('name').errors?.['pattern1Error.message']"></ng-container>
+          <ng-container *ngIf="form.get('name').errors?.['pattern2Error.message']">Capital letters Not allowed</ng-container> 
+        </small> -->
+      </div>
+      <br/>
+      <input type="text" id='fullname' formControlName="fullname">
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+<button (click)="onClearPosts()">Clear</button>
+
+<div>
+  <table>
+    <thead>
+      <th>name</th>
+      <th>fullname</th> 
+    </thead>
+    <tbody>
+      <tr *ngFor="let post of posts">
+         <td>{{post.name}}</td>
+         <td>{{post.fullname}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+   
+</div>
